@@ -13,17 +13,19 @@
 		F986D21E2638231A0055CEF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F986D21C2638231A0055CEF3 /* Main.storyboard */; };
 		F986D2202638231B0055CEF3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F986D21F2638231B0055CEF3 /* Assets.xcassets */; };
 		F986D2232638231B0055CEF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F986D2212638231B0055CEF3 /* LaunchScreen.storyboard */; };
+		F986D22C26383E700055CEF3 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F986D22B26383E700055CEF3 /* ProgressBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F986D2132638231A0055CEF3 /* Breathify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F986D2162638231A0055CEF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F986D2182638231A0055CEF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F986D21A2638231A0055CEF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F986D21A2638231A0055CEF3 /* ViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F986D21D2638231A0055CEF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F986D21F2638231B0055CEF3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F986D2222638231B0055CEF3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F986D2242638231B0055CEF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F986D22B26383E700055CEF3 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F986D21F2638231B0055CEF3 /* Assets.xcassets */,
 				F986D2212638231B0055CEF3 /* LaunchScreen.storyboard */,
 				F986D2242638231B0055CEF3 /* Info.plist */,
+				F986D22B26383E700055CEF3 /* ProgressBar.swift */,
 			);
 			path = Breathify;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				F986D21B2638231A0055CEF3 /* ViewController.swift in Sources */,
 				F986D2172638231A0055CEF3 /* AppDelegate.swift in Sources */,
+				F986D22C26383E700055CEF3 /* ProgressBar.swift in Sources */,
 				F986D2192638231A0055CEF3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
