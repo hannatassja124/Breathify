@@ -8,16 +8,8 @@
 import UIKit
 import Foundation
 import AVFoundation
+import AudioToolbox
 
-class instructionSet{
-    var instruction: String = ""
-    var duration: Int = 0
-    
-//    init(){
-//        self.instruction = instruction
-//        self.duration = duration
-//    }
-}
 
 class ViewController: UIViewController {
 
@@ -31,21 +23,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var settingButton: UIButton!
     
     let shapeLayer = CAShapeLayer()
-    let label = UILabel()
     
-    var seconds = 10
+    var seconds = 124
     var timer = Timer()
     var isTimerRunning = false
     var resumeTapped = false
-    var iterator = 1
     var instruction : [Instruction] = []
     var currIndex = 0
+    var duration = 0
     
     var player: AVAudioPlayer?
     
     
     let defaults = UserDefaults.standard
     let synthesizer = AVSpeechSynthesizer()
+    
+    var isSound = true;
     
 
     override func viewDidLoad() {
@@ -55,30 +48,41 @@ class ViewController: UIViewController {
         let attrString = NSMutableAttributedString(string: stringValue!)
         attrString.addAttribute(NSAttributedString.Key.kern, value: 5, range: NSMakeRange(0, attrString.length))
         TimerLabel.attributedText = attrString
+        TimerLabel.text = timeString(time: TimeInterval(seconds))
         
         let instructionString = instructionLabel.text
         let attrInstruction = NSMutableAttributedString(string: instructionString!)
-        attrInstruction.addAttribute(NSAttributedString.Key.kern, value: 10, range: NSMakeRange(0, attrInstruction.length))
+        attrInstruction.addAttribute(NSAttributedString.Key.kern, value: 7, range: NSMakeRange(0, attrInstruction.length))
         instructionLabel.attributedText = attrInstruction
         
         instructionLabel.isHidden = true;
         
-        print("sound", UserDefaults.standard.string(forKey: "soundSwitch") ?? "0")
-        print("notif", UserDefaults.standard.string(forKey: "notifSwitch") ?? "0")
+        instructionLabel.numberOfLines = 0
         
        instruction = [
-        Instruction(instructionText: "Cat is cute", instructionDuration: 5),
-        Instruction(instructionText: "Dog is cute", instructionDuration: 5),
-        Instruction(instructionText: "Cockroach is not cute", instructionDuration: 5),
+        Instruction(instructionText: "Keep your back straight", instructionDuration: 5),
+        Instruction(instructionText: "Lower your \nchin toward your chest", instructionDuration: 10),
+        Instruction(instructionText: "Slowly lift \nyour head back up", instructionDuration: 5),
+        Instruction(instructionText: "Tilt your chin \nup toward the ceiling", instructionDuration: 5),
+        Instruction(instructionText: "Bring the \nbase of your skull toward your back", instructionDuration: 10),
+        Instruction(instructionText: "Lower your \nhead to \na normal \nposition", instructionDuration: 5),
+        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
+        Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
+        Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
+        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
+        Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
+        Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
+        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
+        Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
+        Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
        ]
         
-//        let utterance = AVSpeechUtterance(string: "Hello world")
-//        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-//        utterance.rate = 0.4
-//
-//        let synthesizer = AVSpeechSynthesizer()
-//        synthesizer.speak(utterance)
-        
+//        defaults.removeObject(forKey: "soundSwitch")
+//        print("data setting", defaults.object(forKey: "soundSwitch"))
+
     }
     
     
@@ -99,14 +103,22 @@ class ViewController: UIViewController {
                 
                 
                 
-                
+                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
                 self.startCountDown()
                 self.animate()
-                self.textInstructionAnimate()
                 self.isTimerRunning = true;
                 self.resumeTapped = false;
                 self.cancelButton.isEnabled = true;
                 self.startButton.setImage(UIImage(named: "pauseButton.png"), for: .normal)
+                
+                let utterance = self.isSound == true  ? AVSpeechUtterance(string: self.instruction[self.currIndex].instructionText ?? "") : AVSpeechUtterance(string: "")
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                utterance.rate = 0.4
+                
+                self.synthesizer.speak(utterance)
+                self.instructionLabel.text = self.instruction[self.currIndex].instructionText
+                
+                self.duration = self.instruction[self.currIndex].instructionDuration!
             }
         } else {
             if(resumeTapped == true){
@@ -115,6 +127,7 @@ class ViewController: UIViewController {
                 startCountDown()
                 startButton.setImage(UIImage(named: "pauseButton.png"), for: .normal)
                 resumeAnimation()
+                synthesizer.continueSpeaking();
                 return
             }   
             isTimerRunning = false;
@@ -122,6 +135,7 @@ class ViewController: UIViewController {
             timer.invalidate()
             startButton.setImage(UIImage(named: "resumeButton.png"), for: .normal)
             pauseAnimation()
+            synthesizer.pauseSpeaking(at: AVSpeechBoundary.immediate)
  
         }
     }
@@ -130,28 +144,14 @@ class ViewController: UIViewController {
         resetTimer()
     }
     
-    func textInstructionAnimate(){
-
-        var instruction = [
-        "Keep your back straight",
-        "Lower your chin toward your chest",
-        "Slowly lift your head back up",
-        "Tilt your chin up toward the ceiling",
-        "Bring the base of your skull toward your back",
-        "Lower your head to a normal position",
-        "Inhale slowly through your nose",
-        "Keep your mouth close",
-        "Pucker your lips",
-        "Exhale slowly and gently through your pursed lips"
-        ]
-
-    }
-    
     
     func resetTimer(){
         timer.invalidate()
-        seconds = 10
+        seconds = 124
+        currIndex = 0
         TimerLabel.text = timeString(time: TimeInterval(seconds))
+        
+        synthesizer.stopSpeaking(at: AVSpeechBoundary.immediate)
         
         UIView.animate(withDuration: 1) {
             self.TimerLabel.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
@@ -172,6 +172,18 @@ class ViewController: UIViewController {
         startButton.setImage(UIImage(named: "startButton.png"), for: .normal)
         
         shapeLayer.removeAllAnimations()
+    }
+    
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        //jangan dihapus ya, kepake untuk segue back ke main
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(defaults.object(forKey: "soundSwitch") != nil){
+            isSound = UserDefaults.standard.bool(forKey: "soundSwitch")
+            print("sound nil",isSound)
+        }
+        
     }
     
     func setUpView(){
@@ -224,7 +236,7 @@ class ViewController: UIViewController {
         shapeLayer.beginTime = 0.0
 
         basicAnimation.toValue = 1
-        basicAnimation.duration = 13
+        basicAnimation.duration = 158
         basicAnimation.fillMode = .forwards
         basicAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basicAnimation, forKey: "urBasic")
@@ -252,21 +264,28 @@ class ViewController: UIViewController {
             return
         }
         
-        let utterance = AVSpeechUtterance(string: instruction[currIndex].instructionText ?? "no text")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        utterance.rate = 0.4
+        duration -= 1
+        print("index", currIndex)
         
-        synthesizer.speak(utterance)
+        
+        if duration == 0  && currIndex < instruction.count-1 {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            duration = instruction[currIndex].instructionDuration!
+            currIndex += 1
+            let utterance = isSound == true  ? AVSpeechUtterance(string: instruction[currIndex].instructionText ?? "") : AVSpeechUtterance(string: "")
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = 0.4
+            
+            synthesizer.speak(utterance)
+            
+            instructionLabel.text = instruction[currIndex].instructionText
+            
+            
+            
+        }
+        
+//        print("duration", instruction[currIndex].instructionDuration)
 
-        
-        
-        //array of instruction(durasi, object suara)
-        
-        //current index of instruction. duration -= 1
-        //if currentindex of instruction == 0
-        //update new current index of instruction
-        
-        //https://developer.apple.com/documentation/avfaudio/avaudioplayer/1389363-pause
         
         seconds -= 1
         TimerLabel.text = timeString(time: TimeInterval(seconds))

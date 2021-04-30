@@ -9,32 +9,46 @@ import UIKit
 
 class SettingViewController: UITableViewController {
 
-    
-    var settings : [Setting] = []
+
     let defaults = UserDefaults.standard
+    let dateFormatter = DateFormatter()
     
-    @IBOutlet weak var notifSwitcher: UISwitch!
     @IBOutlet weak var soundSwitcher: UISwitch!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if defaults.object(forKey: "soundSwitch") != nil {
+            soundSwitcher.isOn =  defaults.bool(forKey: "soundSwitch")
+        }
         // Do any additional setup after loading the view.
     }
     
     @IBAction func notificationSwitch(_ sender: Any) {
         //notifSwitcher.isOn = !notifSwitcher.isOn
-        defaults.setValue(notifSwitcher.isOn, forKey: "notifSwitch")
-        print("notif", UserDefaults.standard.string(forKey: "notifSwitch") ?? "0")
     }
     
     @IBAction func soundNotification(_ sender: Any) {
+
+    }
+    
+    @IBAction func doneButton(_ sender: Any) {
         defaults.setValue(soundSwitcher.isOn, forKey: "soundSwitch")
-        print("sound", UserDefaults.standard.string(forKey: "soundSwitch") ?? "1")
+        
+
+        print("set setting", defaults.object(forKey: "soundSwitch"))
+        self.dismiss(animated: true)
     }
     
     
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+            let mainViewController = self.presentingViewController as? ViewController
+            super.dismiss(animated: flag) {
+                mainViewController?.viewWillAppear(true)
+        }
+    }
+    
+
     
     
 
