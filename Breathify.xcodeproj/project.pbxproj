@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F93095E0263BBB1200CF06D6 /* InstructionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F93095DF263BBB1200CF06D6 /* InstructionModel.swift */; };
+		F949338E263B1CA300779293 /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F949338D263B1CA300779293 /* CompleteViewController.swift */; };
+		F9493391263B21CB00779293 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9493390263B21CB00779293 /* Notification.swift */; };
+		F9493394263B22E700779293 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9493393263B22E700779293 /* SettingViewController.swift */; };
+		F9493397263B234D00779293 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9493396263B234D00779293 /* SettingModel.swift */; };
 		F986D2172638231A0055CEF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F986D2162638231A0055CEF3 /* AppDelegate.swift */; };
 		F986D2192638231A0055CEF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F986D2182638231A0055CEF3 /* SceneDelegate.swift */; };
 		F986D21B2638231A0055CEF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F986D21A2638231A0055CEF3 /* ViewController.swift */; };
@@ -17,6 +22,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F93095DF263BBB1200CF06D6 /* InstructionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionModel.swift; sourceTree = "<group>"; };
+		F949338D263B1CA300779293 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
+		F9493390263B21CB00779293 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		F9493393263B22E700779293 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		F9493396263B234D00779293 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
 		F986D2132638231A0055CEF3 /* Breathify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breathify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F986D2162638231A0055CEF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F986D2182638231A0055CEF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +76,11 @@
 				F986D2212638231B0055CEF3 /* LaunchScreen.storyboard */,
 				F986D2242638231B0055CEF3 /* Info.plist */,
 				F986D22B26383E700055CEF3 /* ProgressBar.swift */,
+				F949338D263B1CA300779293 /* CompleteViewController.swift */,
+				F9493390263B21CB00779293 /* Notification.swift */,
+				F9493393263B22E700779293 /* SettingViewController.swift */,
+				F9493396263B234D00779293 /* SettingModel.swift */,
+				F93095DF263BBB1200CF06D6 /* InstructionModel.swift */,
 			);
 			path = Breathify;
 			sourceTree = "<group>";
@@ -142,7 +157,12 @@
 			files = (
 				F986D21B2638231A0055CEF3 /* ViewController.swift in Sources */,
 				F986D2172638231A0055CEF3 /* AppDelegate.swift in Sources */,
+				F9493391263B21CB00779293 /* Notification.swift in Sources */,
 				F986D22C26383E700055CEF3 /* ProgressBar.swift in Sources */,
+				F93095E0263BBB1200CF06D6 /* InstructionModel.swift in Sources */,
+				F9493397263B234D00779293 /* SettingModel.swift in Sources */,
+				F949338E263B1CA300779293 /* CompleteViewController.swift in Sources */,
+				F9493394263B22E700779293 /* SettingViewController.swift in Sources */,
 				F986D2192638231A0055CEF3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

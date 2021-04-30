@@ -38,8 +38,14 @@ class ViewController: UIViewController {
     var isTimerRunning = false
     var resumeTapped = false
     var iterator = 1
+    var instruction : [Instruction] = []
+    var currIndex = 0
     
     var player: AVAudioPlayer?
+    
+    
+    let defaults = UserDefaults.standard
+    let synthesizer = AVSpeechSynthesizer()
     
 
     override func viewDidLoad() {
@@ -56,15 +62,30 @@ class ViewController: UIViewController {
         instructionLabel.attributedText = attrInstruction
         
         instructionLabel.isHidden = true;
-
+        
+        print("sound", UserDefaults.standard.string(forKey: "soundSwitch") ?? "0")
+        print("notif", UserDefaults.standard.string(forKey: "notifSwitch") ?? "0")
+        
+       instruction = [
+        Instruction(instructionText: "Cat is cute", instructionDuration: 5),
+        Instruction(instructionText: "Dog is cute", instructionDuration: 5),
+        Instruction(instructionText: "Cockroach is not cute", instructionDuration: 5),
+       ]
+        
+//        let utterance = AVSpeechUtterance(string: "Hello world")
+//        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+//        utterance.rate = 0.4
+//
+//        let synthesizer = AVSpeechSynthesizer()
+//        synthesizer.speak(utterance)
+        
     }
     
     
     @IBAction func startTimer(_ sender: Any) {
-        
-        
         if (isTimerRunning == false && resumeTapped == false){
             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+                
                 UIView.animate(withDuration: 1) {
                     self.TimerLabel.frame = CGRect(x: 0, y: 250, width: 390, height: 86)
                     self.TimerLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
@@ -74,7 +95,9 @@ class ViewController: UIViewController {
                                   options: .transitionCrossDissolve,
                                   animations: {
                                     self.instructionLabel.isHidden = false
-                              })
+                })
+                
+                
                 
                 
                 self.startCountDown()
@@ -121,36 +144,9 @@ class ViewController: UIViewController {
         "Pucker your lips",
         "Exhale slowly and gently through your pursed lips"
         ]
-        
-        UIView.animate(withDuration: 1.0, delay: 2.0, options: UIView.AnimationOptions.curveEaseOut, animations:
-               {
-                self.instructionLabel!.alpha = 0.0
-               },
-               completion:
-               {(finished: Bool) -> Void in
-                    self.instructionLabel!.text = instruction[self.iterator]
-
-                    // Fade in
-                UIView.animate(withDuration: 1.0, delay: 0.0, options: UIView.AnimationOptions.curveEaseIn, animations:
-                        {
-                             self.instructionLabel!.alpha = 1.0
-                        },
-                        completion:
-                        {(finished: Bool) -> Void in
-                             self.iterator+=1
-
-                             if self.iterator < instruction.count
-                             {
-                                 self.textInstructionAnimate();
-                             }
-                        })
-               })
-        
-        
-        
-
 
     }
+    
     
     func resetTimer(){
         timer.invalidate()
@@ -179,10 +175,6 @@ class ViewController: UIViewController {
     }
     
     func setUpView(){
-    }
-    
-    func playSound(){
-        
     }
     
     func timeString(time:TimeInterval)-> String {
@@ -255,9 +247,27 @@ class ViewController: UIViewController {
     
     @objc func updateTimer() {
         if seconds < 1 {
+            performSegue(withIdentifier: "completeSegue", sender: nil)
             resetTimer()
             return
         }
+        
+        let utterance = AVSpeechUtterance(string: instruction[currIndex].instructionText ?? "no text")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.4
+        
+        synthesizer.speak(utterance)
+
+        
+        
+        //array of instruction(durasi, object suara)
+        
+        //current index of instruction. duration -= 1
+        //if currentindex of instruction == 0
+        //update new current index of instruction
+        
+        //https://developer.apple.com/documentation/avfaudio/avaudioplayer/1389363-pause
+        
         seconds -= 1
         TimerLabel.text = timeString(time: TimeInterval(seconds))
     }
