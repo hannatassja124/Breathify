@@ -141,7 +141,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func cancelButton(_ sender: Any) {
-        resetTimer()
+        let alert = UIAlertController(title: "Do you want to stop the timer?", message: "You cannot undo this action", preferredStyle: UIAlertController.Style.alert)
+
+                // add the actions (buttons)
+        alert.addAction(UIAlertAction(title: "Continue", style: UIAlertAction.Style.destructive, handler: {action in  self.resetTimer() }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+
+                // show the alert
+        self.present(alert, animated: true, completion: nil)
     }
     
     
