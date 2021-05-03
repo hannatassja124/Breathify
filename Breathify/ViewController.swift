@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var settingButton: UIButton!
     
     let shapeLayer = CAShapeLayer()
+    let paragraphStyle = NSMutableParagraphStyle()
     
     var seconds = 124
     var timer = Timer()
@@ -52,8 +53,15 @@ class ViewController: UIViewController {
         
         let instructionString = instructionLabel.text
         let attrInstruction = NSMutableAttributedString(string: instructionString!)
-        attrInstruction.addAttribute(NSAttributedString.Key.kern, value: 7, range: NSMakeRange(0, attrInstruction.length))
+        attrInstruction.addAttribute(NSAttributedString.Key.kern, value: 5, range: NSMakeRange(0, attrInstruction.length))
+        
+        paragraphStyle.lineSpacing = 2
+        paragraphStyle.alignment =  .center
+        
+        attrInstruction.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, attrInstruction.length))
+        
         instructionLabel.attributedText = attrInstruction
+        
         
         instructionLabel.isHidden = true;
         
@@ -61,21 +69,21 @@ class ViewController: UIViewController {
         
        instruction = [
         Instruction(instructionText: "Keep your back straight", instructionDuration: 5),
-        Instruction(instructionText: "Lower your \nchin toward your chest", instructionDuration: 10),
-        Instruction(instructionText: "Slowly lift \nyour head back up", instructionDuration: 5),
+        Instruction(instructionText: "Lower your \nchin toward \nyour chest", instructionDuration: 10),
+        Instruction(instructionText: "Slowly lift \nyour head \nback up", instructionDuration: 5),
         Instruction(instructionText: "Tilt your chin \nup toward the ceiling", instructionDuration: 5),
-        Instruction(instructionText: "Bring the \nbase of your skull toward your back", instructionDuration: 10),
+        Instruction(instructionText: "Bring the \nbase of your \nskull toward \nyour back", instructionDuration: 10),
         Instruction(instructionText: "Lower your \nhead to \na normal \nposition", instructionDuration: 5),
-        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
-        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
+        Instruction(instructionText: "Inhale slowly through your \nnose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your \nmouth close", instructionDuration: 3),
+        Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
+        Instruction(instructionText: "Exhale slowly \nand gently \nthrough your \npursed lips", instructionDuration: 10),
+        Instruction(instructionText: "Inhale slowly through your \nnose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your \nmouth close", instructionDuration: 3),
         Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
         Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
-        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
-        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
-        Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
-        Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
-        Instruction(instructionText: "Inhale slowly through your nose", instructionDuration: 10),
-        Instruction(instructionText: "Keep your mouth close", instructionDuration: 3),
+        Instruction(instructionText: "Inhale slowly through your \nnose", instructionDuration: 10),
+        Instruction(instructionText: "Keep your \nmouth close", instructionDuration: 3),
         Instruction(instructionText: "Pucker \nyour lips", instructionDuration: 5),
         Instruction(instructionText: "Exhale slowly and gently through your pursed lips", instructionDuration: 10),
        ]
@@ -91,8 +99,8 @@ class ViewController: UIViewController {
             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
                 
                 UIView.animate(withDuration: 1) {
-                    self.TimerLabel.frame = CGRect(x: 0, y: 250, width: 390, height: 86)
-                    self.TimerLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    self.TimerLabel.frame = CGRect(x: 0, y: 230, width: 390, height: 86)
+                    self.TimerLabel.transform = CGAffineTransform(scaleX: 0.35, y: 0.35)
                 }
                 
                 UIView.transition(with: self.instructionLabel, duration: 1,
